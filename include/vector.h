@@ -1,5 +1,5 @@
-#ifndef VECTOR_H_
-#define VECTOR_H_
+#ifndef SUS_VECTOR_H_
+#define SUS_VECTOR_H_
 
 #include <stddef.h>
 
@@ -14,6 +14,7 @@ typedef struct
 
 vector_t *vector_create();
 void vector_destroy(vector_t *vec);
+void vector_destroy_free(vector_t *vec, void (*freer)(void *));
 vector_t *vector_duplicate(vector_t *vec);
 char vector_ensure(vector_t *vec, size_t capacity);
 char vector_trim(vector_t *vec);

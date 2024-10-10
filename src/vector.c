@@ -26,6 +26,14 @@ void vector_destroy(vector_t *vec)
 	free(vec);
 }
 
+void vector_destroy_free(vector_t *vec, void (*freer)(void *))
+{
+	for (size_t i = 0; i < vec->count; i++)
+		freer(vec->data[i]);
+
+	vector_destroy(vec);
+}
+
 vector_t *vector_duplicate(vector_t *vec)
 {
 	vector_t *ret = vector_create();

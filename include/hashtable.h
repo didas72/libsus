@@ -1,15 +1,9 @@
-#ifndef HASHTABLE_H_
-#define HASHTABLE_H_
+#ifndef SUS_HASHTABLE_H_
+#define SUS_HASHTABLE_H_
 
 #include <stddef.h>
 
 #include "vector.h"
-
-
-
-#define HASHTABLE_DEFAULT_CAP 64
-
-
 
 typedef struct hashtable_entry_t hashtable_entry_t;
 
@@ -28,8 +22,6 @@ struct hashtable_entry_t
 	void *content;
 	void *key;
 };
-
-
 
 hashtable_t *hashtable_create(size_t (*hasher)(void*), int (*comparer)(void*, void*));
 void hashtable_destroy(hashtable_t *table);

@@ -7,6 +7,27 @@
 #include "vector.h"
 
 
+//Lowest primes above 64*4^i for hashtable growing
+//Reaches 2^28, times 8B for pointers, which would make the hashtable alone ~2^31B = ~2GB
+//If you reach this limit, the code still handles it but you should reconsider your life
+#define HASTABLE_SIZE_COUNT 12
+static const size_t hashtable_sizes[HASTABLE_SIZE_COUNT] = { 67, 257, 1031, 4099, 16411, 65537, 262147, 1048583, 4194319, 16777259, 67108879, 268435459 };
+#define HASHTABLE_DEFAULT_CAP (hashtable_sizes[0])
+
+static char hashtable_grow(hashtable_t *table)
+{
+	size_t target_size = 0;
+
+	for (int i = 0; i < HASTABLE_SIZE_COUNT; i++)
+	{
+		target_size = hashtable_sizes[i];
+		if (target_size > table->capacity) break;
+	}
+
+	while (target_size <= table->capacity) target_size <<= 2;
+
+	return hashtable_resize(table, target_size);
+}
 
 hashtable_t *hashtable_create(size_t (*hasher)(void*), int (*comparer)(void*, void*))
 {
@@ -48,9 +69,9 @@ void hashtable_destroy(hashtable_t *table)
 
 char hashtable_add(hashtable_t *table, void *key, void *value)
 {
-	if (table->count > table->capacity >> 1)
+	if (table->count > table->capacity >> 1) //Force resize on 50% fill
 	{
-		hashtable_resize(table, table->capacity << 2);
+		hashtable_grow(table);
 		//ignore failure, still able to proceed
 	}
 
