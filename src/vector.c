@@ -40,8 +40,7 @@ int vector_destroy_free(vector_t *vec, void (*freer)(void *))
 	for (size_t i = 0; i < vec->count; i++)
 		freer(vec->data[i]);
 
-	vector_destroy(vec);
-	return SUS_SUCCESS;
+	return vector_destroy(vec);
 }
 
 vector_t *vector_duplicate(vector_t *vec)
