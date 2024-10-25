@@ -66,12 +66,17 @@ int vector_ensure(vector_t *vec, size_t capacity)
 {
 	if (!vec) return SUS_INVALID_ARG;
 	if (vec->capacity >= capacity) return SUS_SUCCESS;
+	size_t old_capacity = vec->capacity;
 
 	if (vec->capacity < VECTOR_DEFAULT_CAP) vec->capacity = VECTOR_DEFAULT_CAP;
 	while (vec->capacity < capacity) vec->capacity <<= 1;
 
 	void **tmp = realloc(vec->data, vec->capacity * sizeof(void *));
-	if (!tmp) return SUS_FAILED_ALLOC;
+	if (!tmp) 
+	{
+		vec->capacity = old_capacity;
+		return SUS_FAILED_ALLOC;
+	}
 
 	vec->data = tmp;
 	return SUS_SUCCESS;
@@ -140,6 +145,19 @@ int vector_pop_back(vector_t *vec)
 		return SUS_INVALID_INDEX;
 	
 	vec->count--;
+	return SUS_SUCCESS;
+}
+
+int vector_insert_at(vector_t *vec, void *data, size_t index)
+{ //REVIEW: Written at 2:51 am
+	if (!vec) return SUS_INVALID_ARG;
+	if (index > vec->count) return SUS_INVALID_INDEX;
+
+	vector_ensure(vec, vec->count+1);
+
+	memmove(&vec->data[index+1], &vec->data[index], (vec->count - index) * sizeof(void *));
+	vec->data[index] = data;
+	vec->count++;
 	return SUS_SUCCESS;
 }
 

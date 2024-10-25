@@ -8,6 +8,27 @@
 #include "vector.h"
 
 
+
+typedef struct hashtable_entry_t hashtable_entry_t;
+
+struct hashtable_entry_t
+{
+	hashtable_entry_t *next;
+	void *content;
+	void *key;
+};
+
+struct hashtable_t
+{
+	hashtable_entry_t **entries;
+	size_t capacity;
+	size_t count;
+	size_t (*hasher)(void*);
+	int (*comparer)(void*, void*);
+};
+
+
+
 //Lowest primes above 64*4^i for hashtable growing
 //Reaches 2^28, times 8B for pointers, which would make the hashtable alone ~2^31B = ~2GB
 //If you reach this limit, the code still handles it but you should reconsider your life
