@@ -15,6 +15,8 @@ int hashtable_add(hashtable_t *table, void *key, void *value);
 void *hashtable_get(hashtable_t *table, void *key);
 int hashtable_remove(hashtable_t *table, void *key, void **removed_key, void **removed_content);
 
+size_t hashtable_get_count(hashtable_t *table);
+
 vector_t *hashtable_list_keys(hashtable_t *table);
 vector_t *hashtable_list_contents(hashtable_t *table);
 

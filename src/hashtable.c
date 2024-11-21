@@ -188,6 +188,14 @@ int hashtable_remove(hashtable_t *table, void *key, void **removed_key, void **r
 	return SUS_SUCCESS;
 }
 
+size_t hashtable_get_count(hashtable_t *table)
+{
+	if (!table)
+		return 0;
+
+	return table->count;
+}
+
 vector_t *hashtable_list_keys(hashtable_t *table)
 {
 	if (!table) return NULL;
