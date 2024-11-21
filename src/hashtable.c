@@ -196,6 +196,22 @@ size_t hashtable_get_count(hashtable_t *table)
 	return table->count;
 }
 
+int hashtable_has_key(hashtable_t *table, void* key)
+{
+	if (!table) return SUS_INVALID_ARG;
+
+	size_t hash_index = table->hasher(key) % table->capacity;
+	hashtable_entry_t *entry = table->entries[hash_index];
+
+	if (entry == NULL)
+		return SUS_FALSE;
+
+	while (entry->next != NULL && table->comparer(key, entry->key))
+		entry = entry->next;
+
+	return !table->comparer(key, entry->key) ? SUS_TRUE : SUS_FALSE;
+}
+
 vector_t *hashtable_list_keys(hashtable_t *table)
 {
 	if (!table) return NULL;
