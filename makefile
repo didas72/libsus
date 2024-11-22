@@ -26,7 +26,7 @@ install: $(TARGET)
 
 uninstall:
 	rm -f $(PREFIX)/lib/$(LIB_NAME)
-	rm -rf $(PREFIX)/include/yourlib
+	rm -rf $(PREFIX)/include/sus
 
 $(TARGET): $(OBJS)
 	ar rcs $@ $^
