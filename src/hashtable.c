@@ -32,15 +32,15 @@ struct hashtable_t
 //Lowest primes above 64*4^i for hashtable growing
 //Reaches 2^28, times 8B for pointers, which would make the hashtable alone ~2^31B = ~2GB
 //If you reach this limit, the code still handles it but you should reconsider your life
-#define HASTABLE_SIZE_COUNT 12
-static const size_t hashtable_sizes[HASTABLE_SIZE_COUNT] = { 67, 257, 1031, 4099, 16411, 65537, 262147, 1048583, 4194319, 16777259, 67108879, 268435459 };
+#define HASHTABLE_SIZE_COUNT 12
+static const size_t hashtable_sizes[HASHTABLE_SIZE_COUNT] = { 67, 257, 1031, 4099, 16411, 65537, 262147, 1048583, 4194319, 16777259, 67108879, 268435459 };
 #define HASHTABLE_DEFAULT_CAP (hashtable_sizes[0])
 
 static int hashtable_grow(hashtable_t *table)
 {
 	size_t target_size = 0;
 
-	for (int i = 0; i < HASTABLE_SIZE_COUNT; i++)
+	for (int i = 0; i < HASHTABLE_SIZE_COUNT; i++)
 	{
 		target_size = hashtable_sizes[i];
 		if (target_size > table->capacity) break;

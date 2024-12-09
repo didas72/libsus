@@ -173,6 +173,14 @@ int vector_remove_at(vector_t *vec, size_t index)
 	return SUS_SUCCESS;
 }
 
+int vector_clear(vector_t *vec)
+{
+	if (!vec) return SUS_INVALID_ARG;
+
+	vec->count = 0;
+	return SUS_SUCCESS;
+}
+
 int vector_iterate(vector_t *vec, void (*func)(void *))
 {
 	if (!vec) return SUS_INVALID_ARG;

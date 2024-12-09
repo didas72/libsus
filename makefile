@@ -12,11 +12,12 @@ SRCS=$(shell find $(DIR_SRC) -type f -name '*.c')
 OBJS=$(patsubst $(DIR_SRC)/%.c,$(DIR_BUILD)/obj/%.o,$(SRCS))
 TARGET=$(DIR_BUILD)/$(LIB_NAME)
 
-.PHONY: all build rebuild clean install uninstall
+.PHONY: all build rebuild clean install uninstall reinstall
 
 all: build
 build: $(TARGET)
 rebuild: clean build
+reinstall: uninstall rebuild install
 
 install: $(TARGET)
 	mkdir -p $(PREFIX)/lib
