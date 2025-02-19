@@ -31,6 +31,7 @@ int vector_clear(vector_t *vec);
 
 int vector_iterate(vector_t *vec, void (*func)(void *));
 vector_t *vector_get_all(vector_t *vec, int (*match)(void *));
+size_t vector_remove(vector_t *vec, void *data);
 size_t vector_remove_all(vector_t *vec, int (*match)(void *));
 vector_t *vector_sort(vector_t *vec, int (*comparer)(void *, void *));
 

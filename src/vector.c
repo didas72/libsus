@@ -206,6 +206,24 @@ vector_t *vector_get_all(vector_t *vec, int (*match)(void *))
 	return ret;
 }
 
+size_t vector_remove(vector_t *vec, void *data)
+{
+	if (!vec) return SUS_INVALID_ARG;
+
+	size_t counter = 0;
+
+	for (size_t i = vec->count - 1; i < ~(size_t)0; i--)
+	{
+		if (vec->data[i] == data)
+		{
+			vector_remove_at(vec, i);
+			counter++;
+		}
+	}
+
+	return counter;
+}
+
 size_t vector_remove_all(vector_t *vec, int (*match)(void *))
 {
 	if (!vec) return SUS_INVALID_ARG;
