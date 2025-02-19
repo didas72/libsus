@@ -185,6 +185,7 @@ int hashtable_remove(hashtable_t *table, void *key, void **removed_key, void **r
 	if (removed_content) *removed_content = entry->content;
 	*ptr_store = entry->next;
 	free(entry);
+	--table->count;
 	return SUS_SUCCESS;
 }
 
