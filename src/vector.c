@@ -192,7 +192,7 @@ int vector_iterate(vector_t *vec, void (*func)(void *))
 	return SUS_SUCCESS;
 }
 
-vector_t *vector_get_all(vector_t *vec, int (*match)(void *))
+vector_t *vector_get_all(vector_t *vec, int (*match)(void *, void *), void *arg)
 {
 	if (!vec) return NULL;
 	if (!match) return NULL;
@@ -200,7 +200,7 @@ vector_t *vector_get_all(vector_t *vec, int (*match)(void *))
 	vector_t *ret = vector_create();
 
 	for (size_t i = 0; i < vec->count; i++)
-		if (match(vec->data[i]))
+		if (match(vec->data[i], arg))
 			vector_append(ret, vec->data[i]);
 
 	return ret;
@@ -224,7 +224,7 @@ size_t vector_remove(vector_t *vec, void *data)
 	return counter;
 }
 
-size_t vector_remove_all(vector_t *vec, int (*match)(void *))
+size_t vector_remove_all(vector_t *vec, int (*match)(void *, void *), void *arg)
 {
 	if (!vec) return SUS_INVALID_ARG;
 	if (!match) return SUS_INVALID_ARG;
@@ -233,7 +233,7 @@ size_t vector_remove_all(vector_t *vec, int (*match)(void *))
 
 	for (size_t i = vec->count - 1; i < ~(size_t)0; i--)
 	{
-		if (match(vec->data[i]))
+		if (match(vec->data[i], arg))
 		{
 			vector_remove_at(vec, i);
 			counter++;

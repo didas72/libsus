@@ -30,9 +30,9 @@ int vector_remove_at(vector_t *vec, size_t index);
 int vector_clear(vector_t *vec);
 
 int vector_iterate(vector_t *vec, void (*func)(void *));
-vector_t *vector_get_all(vector_t *vec, int (*match)(void *));
+vector_t *vector_get_all(vector_t *vec, int (*match)(void *, void *), void *arg);
 size_t vector_remove(vector_t *vec, void *data);
-size_t vector_remove_all(vector_t *vec, int (*match)(void *));
+size_t vector_remove_all(vector_t *vec, int (*match)(void *, void *), void *arg);
 vector_t *vector_sort(vector_t *vec, int (*comparer)(void *, void *));
 
 #endif
