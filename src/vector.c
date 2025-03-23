@@ -56,8 +56,26 @@ vector_t *vector_duplicate(vector_t *vec)
 		return NULL;
 	}
 
-	for (size_t i = 0; i < vec->count; i++)
-		vector_append(ret, vec->data[i]);
+	memcpy(ret->data, vec->data, vec->count * sizeof(void*));
+	ret->count = vec->count;
+
+	return ret;
+}
+
+vector_t *vector_from_range(vector_t *vec, size_t start, size_t count)
+{
+	if (!vec) return NULL;
+	if (start + count >= vec->count) return NULL;
+
+	vector_t *ret = vector_create();
+	if (!ret)
+		return NULL;
+
+	if (vector_append_range(ret, vec, start, count))
+	{
+		vector_destroy(ret);
+		return NULL;
+	}
 
 	return ret;
 }
@@ -109,8 +127,23 @@ int vector_append_vector(vector_t *vec, vector_t *src)
 	if (!vec) return SUS_INVALID_ARG;
 	int err = vector_ensure(vec, vec->count + src->count);
 	if (err) return err;
-	for (size_t i = 0; i < src->count; i++)
-		vec->data[vec->count++] = src->data[i];
+
+	memcpy(&vec->data[vec->count], src->data, src->count * sizeof(void*));
+	vec->count += src->count;
+
+	return SUS_SUCCESS;
+}
+
+int vector_append_range(vector_t *vec, vector_t *src, size_t start, size_t count)
+{
+	if (!vec) return SUS_INVALID_ARG;
+	if (start + count >= src->count) return SUS_INVALID_RANGE;
+	int err = vector_ensure(vec, vec->count + count);
+	if (err) return err;
+
+	memcpy(&vec->data[vec->count], &src->data[start], count * sizeof(void*));
+	vec->count += count;
+
 	return SUS_SUCCESS;
 }
 
@@ -170,6 +203,18 @@ int vector_remove_at(vector_t *vec, size_t index)
 
 	memmove(&vec->data[index], &vec->data[index + 1], (vec->count - index - 1) * sizeof(void *));
 	vec->count--;
+	return SUS_SUCCESS;
+}
+
+int vector_remove_range(vector_t *vec, size_t start, size_t count)
+{
+	if (!vec) return SUS_INVALID_ARG;
+
+	if (start + count >= vec->count)
+		return SUS_INVALID_RANGE;
+
+	memmove(&vec->data[start], &vec->data[start + count], (vec->count - start - count) * sizeof(void *));
+	vec->count -= count;
 	return SUS_SUCCESS;
 }
 
