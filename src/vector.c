@@ -137,7 +137,9 @@ int vector_append_vector(vector_t *vec, vector_t *src)
 int vector_append_range(vector_t *vec, vector_t *src, size_t start, size_t count)
 {
 	if (!vec) return SUS_INVALID_ARG;
+	if (!src) return SUS_INVALID_ARG;
 	if (start + count >= src->count) return SUS_INVALID_RANGE;
+
 	int err = vector_ensure(vec, vec->count + count);
 	if (err) return err;
 
