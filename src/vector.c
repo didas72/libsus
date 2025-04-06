@@ -125,6 +125,8 @@ int vector_append(vector_t *vec, void *data)
 int vector_append_vector(vector_t *vec, vector_t *src)
 {
 	if (!vec) return SUS_INVALID_ARG;
+	if (!src) return SUS_INVALID_ARG;
+	
 	int err = vector_ensure(vec, vec->count + src->count);
 	if (err) return err;
 
