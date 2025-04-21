@@ -1,12 +1,12 @@
-CC=gcc
-C_FLAGS=-O2 -Wall -Wextra -Wpedantic -Werror
+CC?=gcc
+C_FLAGS?=-O2 -Wall -Wextra -Wpedantic -Werror
 
 DIR_BUILD=build
 DIR_SRC=src
 DIR_INCLUDE=include
 
 LIB_NAME=libsus.a
-PREFIX=/usr/local
+PREFIX?=/usr/local
 
 SRCS=$(shell find $(DIR_SRC) -type f -name '*.c')
 OBJS=$(patsubst $(DIR_SRC)/%.c,$(DIR_BUILD)/obj/%.o,$(SRCS))
