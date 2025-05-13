@@ -2,6 +2,8 @@
 #ifndef SUS_VERSION_H_
 #define SUS_VERSION_H_
 
+#define _SUS_DEPRECATED_ __attribute__((deprecated))
+
 #define SUS_VERSION_PACK(major, minor, patch) ((major) * 10000 + (minor) * 100 + (patch))
 #define SUS_VERSION_UNPACK_MAJOR(version) ((version) / 10000)
 #define SUS_VERSION_UNPACK_MINOR(version) (((version) / 100) % 100)

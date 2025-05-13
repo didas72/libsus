@@ -8,9 +8,11 @@
 
 size_t hash_str(void *ptr);
 int compare_str(void *ptr1, void *ptr2);
-//Used when casting key to void*
+//[DEPRECATED] Use ivector instead of casting keys to void*
+_SUS_DEPRECATED_
 size_t hash_ptr(void *ptr);
-//Used when casting key to void*
+//[DEPRECATED] Use ivector instead of casting keys to void*
+_SUS_DEPRECATED_
 int compare_ptr(void *ptr1, void *ptr2);
 
 #endif
