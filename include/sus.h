@@ -16,4 +16,6 @@
 #define SUS_FALSE 0
 #define SUS_TRUE 1
 
+const char *sus_strerror(int error);
+
 #endif
