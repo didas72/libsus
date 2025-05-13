@@ -303,12 +303,11 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 	table->capacity = capacity;
 	table->count = 0;
 
-	for (size_t i = 0; i < keys->count; i++)
-		hashtable_add(table, keys->data[i], values->data[i]);
+	for (size_t i = 0; i < vector_get_count(keys); i++)
+		hashtable_add(table, vector_get(keys, i), vector_get(values, i));
 
 	vector_destroy(keys);
 	vector_destroy(values);
 
 	return SUS_SUCCESS;
 }
-

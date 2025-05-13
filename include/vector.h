@@ -59,4 +59,9 @@ static inline size_t vector_remove_all(vector_t *vec, int (*match)(void *, void 
 static inline vector_t *vector_sort(vector_t *vec, int (*comparer)(void *, void *))
 { return ivector_sort(vec, comparer); }
 
+static inline size_t vector_get_count(vector_t *vec)
+{ return ivector_get_count(vec); }
+static inline void *vector_get(vector_t *vec, size_t index)
+{ return *(void**)ivector_get(vec, index); }
+
 #endif

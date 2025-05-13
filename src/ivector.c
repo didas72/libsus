@@ -9,6 +9,14 @@
 #define ADDR(vec, idx) (void*)((char*)((vec)->data) + (idx) * (vec)->element_size)
 
 
+struct ivector_t
+{
+	void *data;
+	size_t capacity;
+	size_t count;
+	size_t element_size;
+}; 
+
 
 ivector_t *ivector_create(size_t element_size)
 {
@@ -308,4 +316,22 @@ ivector_t *ivector_sort(ivector_t *vec, int (*comparer)(void *, void *))
 	}
 
 	return vec;
+}
+
+size_t ivector_get_count(ivector_t *vec)
+{
+	return vec->count;
+}
+void *ivector_get(ivector_t *vec, size_t index)
+{
+	return ADDR(vec, index);
+}
+int ivector_fetch(ivector_t *vec, size_t index, void *store)
+{
+	if (!vec) return SUS_INVALID_ARG;
+	if (index >= vec->count) return SUS_INVALID_INDEX;
+
+	memcpy(store, ADDR(vec, index), vec->element_size);
+
+	return SUS_SUCCESS;
 }

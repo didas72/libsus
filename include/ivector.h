@@ -7,13 +7,7 @@
 
 #define IVECTOR_DEFAULT_CAP 4
 
-typedef struct
-{
-	void *data;
-	size_t capacity;
-	size_t count;
-	size_t element_size;
-} ivector_t;
+typedef struct ivector_t ivector_t;
 
 ivector_t *ivector_create(size_t element_size);
 int ivector_destroy(ivector_t *vec);
@@ -39,5 +33,9 @@ ivector_t *ivector_get_all(ivector_t *vec, int (*match)(void *, void *), void *a
 size_t ivector_remove(ivector_t *vec, void *data);
 size_t ivector_remove_all(ivector_t *vec, int (*match)(void *, void *), void *arg);
 ivector_t *ivector_sort(ivector_t *vec, int (*comparer)(void *, void *));
+
+size_t ivector_get_count(ivector_t *vec);
+void *ivector_get(ivector_t *vec, size_t index);
+int ivector_fetch(ivector_t *vec, size_t index, void *store);
 
 #endif
