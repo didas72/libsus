@@ -1,6 +1,8 @@
 #ifndef SUS_HASHTABLE_H_
 #define SUS_HASHTABLE_H_
 
+#include "versioning.h"
+
 #include <stddef.h>
 
 #include "vector.h"

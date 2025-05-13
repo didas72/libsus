@@ -1,6 +1,8 @@
 #ifndef SUS_VECTOR_H_
 #define SUS_VECTOR_H_
 
+#include "versioning.h"
+
 #include <stddef.h>
 
 #define VECTOR_DEFAULT_CAP 4

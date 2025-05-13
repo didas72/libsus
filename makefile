@@ -34,7 +34,7 @@ $(TARGET): $(OBJS)
 
 $(DIR_BUILD)/obj/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(C_FLAGS) -I$(DIR_INCLUDE) -c $< -o $@
+	$(CC) $(C_FLAGS) -D_SUS_IMPLEMENTATION_ -I$(DIR_INCLUDE) -c $< -o $@
 
 clean:
 	-rm -r $(DIR_BUILD)

@@ -1,6 +1,8 @@
 #ifndef SUS_HASHES_H_
 #define SUS_HASHES_H_
 
+#include "versioning.h"
+
 #include <stddef.h>
 #include <stdint.h>
 

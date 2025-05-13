@@ -1,6 +1,8 @@
 #ifndef SUS_BITSTREAM_H_
 #define SUS_BITSTREAM_H_
 
+#include "versioning.h"
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>

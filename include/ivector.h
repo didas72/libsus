@@ -1,6 +1,8 @@
 #ifndef SUS_IVECTOR_H_
 #define SUS_IVECTOR_H_
 
+#include "versioning.h"
+
 #include <stddef.h>
 
 #define IVECTOR_DEFAULT_CAP 4

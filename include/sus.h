@@ -3,6 +3,8 @@
 #ifndef SUS_H_
 #define SUS_H_
 
+#include "versioning.h"
+
 #define SUS_INCOMPATIBLE_IVECTORS -7
 #define SUS_INVALID_RANGE -6
 #define SUS_ENTRY_NOT_FOUND -5
