@@ -5,6 +5,7 @@
 
 #include "versioning.h"
 
+#define SUS_UNSIGNED_ERR (~(size_t)0)
 #define SUS_BITSTREAM_ACCESS -8
 #define SUS_INCOMPATIBLE_IVECTORS -7
 #define SUS_INVALID_RANGE -6
