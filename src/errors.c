@@ -18,6 +18,8 @@ const char *sus_strerror(int error)
 			return "Invalid range";
 		case SUS_INCOMPATIBLE_IVECTORS:
 			return "Incompatible ivector types";
+		case SUS_BITSTREAM_ACCESS:
+			return "Invalid access to bitstream (R/W)";
 		case SUS_SUCCESS:
 			return "No error";
 

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sus.h"
 #include "math_utils.h"
 
 struct bitstream_t
@@ -29,8 +30,8 @@ bitstream_t *bitstream_create(FILE *file, bool write)
 }
 int bitstream_write(bitstream_t *stream, uint64_t value, int bits)
 {
-	if (!stream->write) return -1;
-	if (bits < 0 || bits > 64) return -1;
+	if (!stream->write) return SUS_BITSTREAM_ACCESS;
+	if (bits < 0 || bits > 64) return SUS_INVALID_ARG;
 
 	int fbits = 64 - stream->head;
 
@@ -55,12 +56,12 @@ int bitstream_write(bitstream_t *stream, uint64_t value, int bits)
 	stream->head += bits;
 
 _bit_stream_write_skip_no_flush:
-	return 0;
+	return SUS_SUCCESS;
 }
 int bitstream_read(bitstream_t *stream, uint64_t *store, int bits)
 {//FIXME: Does not prevent reading past end of file
-	if (stream->write) return -1;
-	if (bits < 0 || bits > 64) return -1;
+	if (stream->write) return SUS_BITSTREAM_ACCESS;
+	if (bits < 0 || bits > 64) return SUS_INVALID_ARG;
 
 	uint64_t value = 0;
 	int rbits = bits;
@@ -85,7 +86,7 @@ int bitstream_read(bitstream_t *stream, uint64_t *store, int bits)
 
 _bit_stream_read_skip_no_read:
 	*store = value;
-	return 0;
+	return SUS_SUCCESS;
 }
 int bitstream_destroy(bitstream_t *stream)
 {
@@ -97,5 +98,5 @@ int bitstream_destroy(bitstream_t *stream)
 
 _bit_stream_destroy_skip_flush:
 	free(stream);
-	return 0;
+	return SUS_SUCCESS;
 }
