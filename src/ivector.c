@@ -261,7 +261,7 @@ ivector_t *ivector_get_all(ivector_t *vec, int (*match)(void *, void *), void *a
 
 size_t ivector_remove(ivector_t *vec, void *data)
 {
-	if (!vec) return SUS_INVALID_ARG;
+	if (!vec) return SUS_UNSIGNED_ERR;
 
 	size_t counter = 0;
 
