@@ -18,6 +18,12 @@
 #define SUS_FALSE 0
 #define SUS_TRUE 1
 
+/**
+ * @brief Gets the string representation of a given error code.
+ * 
+ * @param error The error code to stringify.
+ * @return const char* The string representation of the error code.
+ */
 const char *sus_strerror(int error);
 
 #endif
