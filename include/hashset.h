@@ -74,7 +74,7 @@ static inline size_t hashset_get_count(hashset_t *set)
  * @param key The key to look for.
  * @return int Return code or error code for the operation.
  */
-static inline void *hashset_contains(hashset_t *set, void *key)
+static inline int hashset_contains(hashset_t *set, void *key)
 { return hashtable_has_key(set, key); }
 
 /**
