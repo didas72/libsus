@@ -8,7 +8,7 @@
 #include "hashtable.h"
 #include "vector.h"
 
-typedef hashset_t hashset_t;
+typedef hashtable_t hashset_t;
 
 /**
  * @brief Creates a new hashset with the given hasher and comparer functions.
