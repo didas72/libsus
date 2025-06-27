@@ -20,4 +20,9 @@
  */
 #define DIV_CEIL(a, b) ((((a) + (b) - 1) / (b)))
 
+/**
+ * @brief Integer subtraction without underflow.
+ */
+#define NO_UNDERV_SUB(a, b) ((a) > (b) ? (a) - (b) : 0)
+
 #endif
