@@ -40,7 +40,9 @@ int bitstream_write(bitstream_t *stream, uint64_t value, int bits)
 		uint64_t mask = ~(uint64_t)0 >> (64 - fbits);
 		uint64_t masked = value & mask;
 		stream->buffer |= masked << stream->head;
-		fwrite(&stream->buffer, 8, 1, stream->file); //FIXME: No error checking
+		size_t written = fwrite(&stream->buffer, sizeof(stream->buffer), 1, stream->file);
+		if (written != sizeof(stream->buffer))
+			return SUS_BAD_WRITE;
 		stream->head = 0;
 		stream->buffer = 0;
 		bits -= fbits;
@@ -59,7 +61,7 @@ _bit_stream_write_skip_no_flush:
 	return SUS_SUCCESS;
 }
 int bitstream_read(bitstream_t *stream, uint64_t *store, int bits)
-{//FIXME: Does not prevent reading past end of file
+{
 	if (stream->write) return SUS_BITSTREAM_ACCESS;
 	if (bits < 0 || bits > 64) return SUS_INVALID_ARG;
 
@@ -73,7 +75,9 @@ int bitstream_read(bitstream_t *stream, uint64_t *store, int bits)
 		value = shift < 64 ? (stream->buffer >> shift) : 0;
 		rbits -= valid_bits;
 		stream->head = 0;
-		fread(&stream->buffer, 1, 8, stream->file); //FIXME: No error checking
+		size_t read = fread(&stream->buffer, sizeof(stream->buffer), 1, stream->file);
+		if (read != sizeof(stream->buffer))
+			return SUS_BAD_READ;
 	}
 
 	if (rbits == 0)
@@ -93,7 +97,11 @@ int bitstream_destroy(bitstream_t *stream)
 	if (!stream->write) goto _bit_stream_destroy_skip_flush;
 
 	if (stream->head) //Flush if needed
-		fwrite(&stream->buffer, 1, DIV_CEIL(stream->head, 8), stream->file); //FIXME: No error checking
+	{
+		size_t written = fwrite(&stream->buffer, sizeof(stream->buffer), 1, stream->file);
+		if (written != sizeof(stream->buffer))
+			return SUS_BAD_WRITE;
+	}
 	fflush(stream->file);
 
 _bit_stream_destroy_skip_flush:

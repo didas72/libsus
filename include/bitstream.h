@@ -41,7 +41,7 @@ int bitstream_read(bitstream_t *stream, uint64_t *store, int bits);
  * @param stream The bitstream to close.
  * @return int Error code for the operation.
  * 
- * @remark Does not close the underlying file.
+ * @remark Does not close the underlying file. The total number of bytes written is always a multiple of 8.
  */
 int bitstream_destroy(bitstream_t *stream);
 
