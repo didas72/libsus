@@ -5,7 +5,8 @@
 #include <string.h>
 
 #include "sus.h"
-#include "vector.h"
+#include "ivector.h"
+#include "ivector_utils.h"
 
 
 
@@ -213,16 +214,16 @@ int hashtable_has_key(hashtable_t *table, void* key)
 	return !table->comparer(key, entry->key) ? SUS_TRUE : SUS_FALSE;
 }
 
-vector_t *hashtable_list_keys(hashtable_t *table)
+ivector_t *hashtable_list_keys(hashtable_t *table)
 {
 	if (!table) return NULL;
 
-	vector_t *ret = vector_create();
+	ivector_t *ret = ivector_create(sizeof(void*));
 	if (!ret) return NULL;
 
-	if (vector_ensure(ret, table->count))
+	if (ivector_ensure(ret, table->count))
 	{
-		vector_destroy(ret);
+		ivector_destroy(ret);
 		return NULL;
 	}
 
@@ -232,7 +233,7 @@ vector_t *hashtable_list_keys(hashtable_t *table)
 
 		while (entry)
 		{
-			vector_append(ret, entry->key);
+			ivector_append(ret, entry->key);
 			entry = entry->next;
 		}
 	}
@@ -240,16 +241,16 @@ vector_t *hashtable_list_keys(hashtable_t *table)
 	return ret;
 }
 
-vector_t *hashtable_list_contents(hashtable_t *table)
+ivector_t *hashtable_list_contents(hashtable_t *table)
 {
 	if (!table) return NULL;
 
-	vector_t *ret = vector_create();
+	ivector_t *ret = ivector_create(sizeof(void*));
 	if (!ret) return NULL;
 
-	if (vector_ensure(ret, table->count))
+	if (ivector_ensure(ret, table->count))
 	{
-		vector_destroy(ret);
+		ivector_destroy(ret);
 		return NULL;
 	}
 
@@ -259,7 +260,7 @@ vector_t *hashtable_list_contents(hashtable_t *table)
 
 		while (entry)
 		{
-			vector_append(ret, entry->content);
+			ivector_append(ret, entry->content);
 			entry = entry->next;
 		}
 	}
@@ -274,10 +275,12 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 	if (table->capacity == capacity)
 		return SUS_SUCCESS;
 
-	vector_t *keys = hashtable_list_keys(table);
+	//ivector<void*>
+	ivector_t *keys = hashtable_list_keys(table);
 	if (!keys) return SUS_FAILED_ALLOC;
-	vector_t *values = hashtable_list_contents(table);
-	if (!values) { vector_destroy(keys); return SUS_FAILED_ALLOC; }
+	//ivector<void*>
+	ivector_t *values = hashtable_list_contents(table);
+	if (!values) { ivector_destroy(keys); return SUS_FAILED_ALLOC; }
 
 	hashtable_entry_t *entry, *prev;
 
@@ -294,7 +297,7 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 	}
 
 	hashtable_entry_t **tmp = malloc(capacity * sizeof(hashtable_entry_t*));
-	if (!tmp) { vector_destroy(keys); vector_destroy(values); return SUS_FAILED_ALLOC; }
+	if (!tmp) { ivector_destroy(keys); ivector_destroy(values); return SUS_FAILED_ALLOC; }
 
 	memset(tmp, 0, sizeof(hashtable_entry_t*) * capacity);
 
@@ -303,11 +306,11 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 	table->capacity = capacity;
 	table->count = 0;
 
-	for (size_t i = 0; i < vector_get_count(keys); i++)
-		hashtable_add(table, vector_get(keys, i), vector_get(values, i));
+	for (size_t i = 0; i < ivector_get_count(keys); i++)
+		hashtable_add(table, ivector_get_voidp(keys, i), ivector_get_voidp(values, i));
 
-	vector_destroy(keys);
-	vector_destroy(values);
+	ivector_destroy(keys);
+	ivector_destroy(values);
 
 	return SUS_SUCCESS;
 }

@@ -213,5 +213,14 @@ void *ivector_get(ivector_t *vec, size_t index);
  * @return int Error code for the operation.
  */
 int ivector_fetch(ivector_t *vec, size_t index, void *store);
+/**
+ * @brief Retrieves the underlying array that stores the elements.
+ * 
+ * @param vec The ivector to access.
+ * @return void* Pointer to the underlying array.
+ * 
+ * @remark Alignment related optimizations may introduce padding between elements. Padding is implementation defined.
+ */
+void *ivector_as_pointer(ivector_t *vec);
 
 #endif

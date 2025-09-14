@@ -322,10 +322,12 @@ size_t ivector_get_count(ivector_t *vec)
 {
 	return vec->count;
 }
+
 void *ivector_get(ivector_t *vec, size_t index)
 {
 	return ADDR(vec, index);
 }
+
 int ivector_fetch(ivector_t *vec, size_t index, void *store)
 {
 	if (!vec) return SUS_INVALID_ARG;
@@ -334,4 +336,9 @@ int ivector_fetch(ivector_t *vec, size_t index, void *store)
 	memcpy(store, ADDR(vec, index), vec->element_size);
 
 	return SUS_SUCCESS;
+}
+
+void *ivector_as_pointer(ivector_t *vec)
+{
+	return vec->data;
 }

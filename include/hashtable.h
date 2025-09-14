@@ -5,7 +5,7 @@
 
 #include <stddef.h>
 
-#include "vector.h"
+#include "ivector.h"
 
 typedef struct hashtable_t hashtable_t;
 
@@ -81,24 +81,24 @@ size_t hashtable_get_count(hashtable_t *table);
 int hashtable_has_key(hashtable_t *table, void* key);
 
 /**
- * @brief Creates a vector with the keys present in the hashtable.
+ * @brief Creates an ivector<void*> with the keys present in the hashtable.
  * 
  * @param table The hashtable whose keys are to be listed.
- * @return vector_t* The created vector containing the keys or NULL if errored.
+ * @return ivector_t* The created ivector<void*> containing the keys or NULL if errored.
  * 
  * @remark The returned vector should be destroyed after use.
  */
-vector_t *hashtable_list_keys(hashtable_t *table);
+ivector_t *hashtable_list_keys(hashtable_t *table);
 
 /**
- * @brief Creates a vector with the values present in the hashtable.
+ * @brief Creates an ivector<void*> with the values present in the hashtable.
  * 
  * @param table The hashtable whose values are to be listed.
- * @return vector_t* The created vector containing the values or NULL if errored.
+ * @return ivector_t* The created ivector<void*> containing the values or NULL if errored.
  * 
  * @remark The returned vector should be destroyed after use.
  */
-vector_t *hashtable_list_contents(hashtable_t *table);
+ivector_t *hashtable_list_contents(hashtable_t *table);
 
 /**
  * @brief [READ REMARK] Resizes the hashtable to a given number of buckets.
