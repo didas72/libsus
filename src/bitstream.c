@@ -6,15 +6,10 @@
 #include <stdlib.h>
 
 #include "sus.h"
+#include "sus_internals.h"
 #include "math_utils.h"
 
-struct bitstream_t
-{
-	FILE *file;
-	uint64_t buffer;
-	int head;
-	bool write;
-};
+
 
 bitstream_t *bitstream_create(FILE *file, bool write)
 {

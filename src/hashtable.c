@@ -5,28 +5,9 @@
 #include <string.h>
 
 #include "sus.h"
+#include "sus_internals.h"
 #include "ivector.h"
 #include "ivector_utils.h"
-
-
-
-typedef struct hashtable_entry_t hashtable_entry_t;
-
-struct hashtable_entry_t
-{
-	hashtable_entry_t *next;
-	void *content;
-	void *key;
-};
-
-struct hashtable_t
-{
-	hashtable_entry_t **entries;
-	size_t capacity;
-	size_t count;
-	size_t (*hasher)(void*);
-	int (*comparer)(void*, void*);
-};
 
 
 

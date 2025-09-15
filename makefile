@@ -49,7 +49,7 @@ $(DIR_BUILD)/obj/%.o: $(DIR_SRC)/%.c
 
 $(DIR_BUILD)/test/%.elf: $(DIR_TEST)/%.c $(DIR_TEST)/unity/unity.c $(OBJS)
 	@mkdir -p $(@D)
-	$(CC) $(C_FLAGS) -DSUS_TARGET_VERSION=10000 -I$(DIR_INCLUDE) $^ -o $@
+	$(CC) $(C_FLAGS) -DSUS_TARGET_VERSION=10000 -I$(DIR_INCLUDE) -I$(DIR_SRC) $^ -o $@
 
 clean:
 	-rm -r $(DIR_BUILD)

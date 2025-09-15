@@ -5,17 +5,10 @@
 #include <stdlib.h>
 
 #include "sus.h"
+#include "sus_internals.h"
 
 #define ADDR(vec, idx) (void*)((char*)((vec)->data) + (idx) * (vec)->element_size)
 
-
-struct ivector_t
-{
-	void *data;
-	size_t capacity;
-	size_t count;
-	size_t element_size;
-}; 
 
 
 ivector_t *ivector_create(size_t element_size)
