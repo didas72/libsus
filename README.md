@@ -12,6 +12,7 @@ There is no documentation at this point, this is still being worked on.
 
 - `gcc`
 - `make`
+- `ruby` (for test runner generation)
 
 To build the library, ensure you have the above listed requirements, after which, you may simply:
 
