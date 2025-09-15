@@ -64,6 +64,7 @@ void test_ivector_destroy_bad()
 TEST_MATRIX([sizeof(int), 1], [1, 4, 16, 25])
 void test_ivector_duplicate_good(size_t element_size, size_t count)
 {	
+	//TODO: Test content duplication
 	ivector_t *new, *old;
 	
 	//Fake ivector setup
@@ -84,4 +85,12 @@ void test_ivector_duplicate_good(size_t element_size, size_t count)
 	//Fake ivector cleanup
 	free(old->data);
 	free(old);
+}
+
+void test_ivector_duplicate_bad()
+{
+	ivector_t *vec;
+
+	vec = ivector_duplicate(NULL);
+	TEST_ASSERT_NULL_MESSAGE(vec, "ivector_duplicate allowed NULL vec");
 }
