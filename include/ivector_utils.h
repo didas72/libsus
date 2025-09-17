@@ -4,6 +4,8 @@
 #include "versioning.h"
 #include "ivector.h"
 
+#define ivector_get_t(vec, idx, type) (*(type*)ivector_get(vec, idx))
+
 static inline char ivector_get_char(ivector_t *vec, size_t index)
 { return *(char*)ivector_get(vec, index); }
 
