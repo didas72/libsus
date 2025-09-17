@@ -214,7 +214,7 @@ ivector_t *hashtable_list_keys(hashtable_t *table)
 
 		while (entry)
 		{
-			ivector_append(ret, entry->key);
+			ivector_append(ret, &entry->key);
 			entry = entry->next;
 		}
 	}
@@ -241,7 +241,7 @@ ivector_t *hashtable_list_contents(hashtable_t *table)
 
 		while (entry)
 		{
-			ivector_append(ret, entry->content);
+			ivector_append(ret, &entry->content);
 			entry = entry->next;
 		}
 	}
