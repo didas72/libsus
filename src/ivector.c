@@ -83,7 +83,7 @@ int ivector_ensure(ivector_t *vec, size_t capacity)
 	while (vec->capacity < capacity) vec->capacity <<= 1;
 
 	void *tmp = realloc(vec->data, vec->capacity * vec->element_size);
-	if (!tmp) 
+	if (!tmp)
 	{
 		vec->capacity = old_capacity;
 		return SUS_FAILED_ALLOC;
@@ -121,7 +121,7 @@ int ivector_append_vector(ivector_t *vec, ivector_t *src)
 	if (!vec) return SUS_INVALID_ARG;
 	if (!src) return SUS_INVALID_ARG;
 	if (vec->element_size != src->element_size) return SUS_INCOMPATIBLE_IVECTORS;
-	
+
 	int err = ivector_ensure(vec, vec->count + src->count);
 	if (err) return err;
 
@@ -149,7 +149,7 @@ int ivector_append_range(ivector_t *vec, ivector_t *src, size_t start, size_t co
 int ivector_push_front(ivector_t *vec, void *data)
 {
 	if (!vec) return SUS_INVALID_ARG;
-	
+
 	int err = ivector_ensure(vec, vec->count + 1);
 	if (err) return err;
 	memmove(ADDR(vec, 1), vec->data, (vec->count) * vec->element_size);
@@ -177,7 +177,7 @@ int ivector_pop_back(ivector_t *vec)
 
 	if (!vec->count)
 		return SUS_INVALID_INDEX;
-	
+
 	vec->count--;
 	return SUS_SUCCESS;
 }

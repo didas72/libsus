@@ -1,7 +1,7 @@
 ifeq ($(origin CC),default)
 CC=gcc
 endif
-C_FLAGS?=-O2 -Wall -Wextra -Wpedantic -Werror
+C_FLAGS?=-O2 -ggdb -Wall -Wextra -Wpedantic -Werror
 
 DIR_BUILD=build
 DIR_SRC=src

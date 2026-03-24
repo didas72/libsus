@@ -4,7 +4,7 @@ const char *sus_strerror(int error)
 {
 	switch (error)
 	{
-		case SUS_ERR: 
+		case SUS_ERR:
 			return "Unspecified error";
 		case SUS_INVALID_ARG:
 			return "Invalid argument";

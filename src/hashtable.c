@@ -43,7 +43,7 @@ hashtable_t *hashtable_create(size_t (*hasher)(void*), int (*comparer)(void*, vo
 
 	table->entries = malloc(sizeof(hashtable_entry_t*) * HASHTABLE_DEFAULT_CAP);
 	if (!table->entries) { free(table); return NULL; }
-	
+
 	memset(table->entries, 0, sizeof(hashtable_entry_t*) * HASHTABLE_DEFAULT_CAP);
 
 	table->capacity = HASHTABLE_DEFAULT_CAP;
@@ -63,7 +63,7 @@ int hashtable_destroy(hashtable_t *table)
 	for (size_t i = 0; i < table->capacity; i++)
 	{
 		entry = table->entries[i];
-		
+
 		while (entry)
 		{
 			tmp = entry;
@@ -86,7 +86,7 @@ int hashtable_destroy_free(hashtable_t *table, void (*free_key)(void *), void (*
 	for (size_t i = 0; i < table->capacity; i++)
 	{
 		entry = table->entries[i];
-		
+
 		while (entry)
 		{
 			if (free_key) free_key(entry->key);
@@ -162,7 +162,7 @@ int hashtable_remove(hashtable_t *table, void *key, void **removed_key, void **r
 
 	if (table->comparer(key, entry->key))
 		return SUS_ENTRY_NOT_FOUND;
-	
+
 	if (removed_key) *removed_key = entry->key;
 	if (removed_content) *removed_content = entry->content;
 	*ptr_store = entry->next;
@@ -268,7 +268,7 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 	for (size_t i = 0; i < table->capacity; i++)
 	{
 		entry = table->entries[i];
-		
+
 		while (entry)
 		{
 			prev = entry;

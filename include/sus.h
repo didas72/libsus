@@ -22,7 +22,7 @@
 
 /**
  * @brief Gets the string representation of a given error code.
- * 
+ *
  * @param error The error code to stringify.
  * @return const char* The string representation of the error code.
  */
