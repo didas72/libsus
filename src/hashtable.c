@@ -295,3 +295,8 @@ int hashtable_resize(hashtable_t *table, size_t capacity)
 
 	return SUS_SUCCESS;
 }
+
+int hashtable_trim(hashtable_t *table)
+{
+	return hashtable_grow(table);
+}

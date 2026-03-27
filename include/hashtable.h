@@ -111,4 +111,12 @@ ivector_t *hashtable_list_contents(hashtable_t *table);
  */
 int hashtable_resize(hashtable_t *table, size_t capacity);
 
+/**
+ * @brief Resizes the hashtable to fit the data and reduce memory footprint.
+ *
+ * @param table The hashtable to trim.
+ * @return int Error code for the operation.
+ */
+int hashtable_trim(hashtable_t *table);
+
 #endif

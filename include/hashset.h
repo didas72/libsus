@@ -100,4 +100,13 @@ static inline ivector_t *hashset_to_ivector(hashset_t *set)
 static inline int hashset_resize(hashset_t *set, size_t capacity)
 { return hashtable_resize(set, capacity); }
 
+/**
+ * @brief Resizes the hashset to fit the data and reduce memory footprint.
+ *
+ * @param set The hashset to trim.
+ * @return int Error code for the operation.
+ */
+static inline int hashset_trim(hashset_t *set)
+{ return hashtable_trim(set); }
+
 #endif
