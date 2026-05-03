@@ -52,6 +52,14 @@ int hashtable_add(hashtable_t *table, void *key, void *value);
  */
 void *hashtable_get(hashtable_t *table, void *key);
 /**
+ * @brief Attempts to update the value associated with the given key in the hashtable.
+ *
+ * @param table The hashtable to access.
+ * @param key The key to search for.
+ * @return int Error code for the opertation.
+ */
+int hashtable_set(hashtable_t *table, void *key, void *value);
+/**
  * @brief Attempts to remove a key value pair from a hashtable.
  *
  * @param table The hashtable to remove from.

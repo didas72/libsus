@@ -144,6 +144,27 @@ void *hashtable_get(hashtable_t *table, void *key)
 	return !table->comparer(key, entry->key) ? entry->content : NULL;
 }
 
+int hashtable_set(hashtable_t *table, void *key, void *value)
+{
+	if (!table) return SUS_INVALID_ARG;
+
+	size_t hash_index = table->hasher(key) % table->capacity;
+	hashtable_entry_t *entry = table->entries[hash_index];
+
+	if (entry == NULL)
+		return SUS_ENTRY_NOT_FOUND;
+
+	while (entry->next != NULL && table->comparer(key, entry->key))
+		entry = entry->next;
+
+	if (table->comparer(key, entry->key) != 0)
+		return SUS_ENTRY_NOT_FOUND;
+
+	entry->content = value;
+
+	return SUS_SUCCESS;
+}
+
 int hashtable_remove(hashtable_t *table, void *key, void **removed_key, void **removed_content)
 {
 	if (!table) return SUS_INVALID_ARG;
