@@ -14,6 +14,20 @@ struct ivector_t
 	size_t element_size;
 };
 
+typedef struct llist_entry_t llist_entry_t;
+
+struct llist_entry_t
+{
+	llist_entry_t *next, *prev;
+	void *content;
+};
+
+struct llist_t
+{
+	llist_entry_t *head, *tail;
+	size_t count;
+};
+
 typedef struct hashtable_entry_t hashtable_entry_t;
 
 struct hashtable_entry_t
